@@ -1,0 +1,5 @@
+I made some edits to my site that differ from my wireframe. 
+
+1. I removed the bottom page navigation from the home page. After inserting the hero image, this didn't look nice and didn't visually catch the eye, could cause confusion for user. It looked more professional and consistent to keep the same navigation bar at the top of every page. 
+
+2. I removed the "Contact Me" page that I originally had in the wireframe. It was redundant and didn't serve a purpose. Putting a "mailto" link to contact me in the footer looked cleaner and served the same purpose. 
