@@ -1,0 +1,235 @@
+/* Theme: Black / White / Greys | Font Family: Georgia serif */
+:root {
+  --bg: #000000;
+  --surface: #111111;
+  --surface-2: #1a1a1a;
+
+  --text: #f2f2f2;
+  --muted: #bdbdbd;
+
+  --border: #2a2a2a;
+  --border-strong: #3a3a3a;
+
+  --link: #ffffff;
+  --link-hover: #cccccc;
+
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  --radius: 12px;
+
+  --maxw: 980px;
+  --navh: 72px;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+img { max-width: 100%; display: block; }
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+.container {
+  width: min(var(--maxw), calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+/* Top Navigation Bar */
+.site-header {
+  border-bottom: 2px solid var(--border-strong);
+  background: var(--surface-2);
+}
+
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.nav-grid a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--navh);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  color: var(--text);
+  border-right: 2px solid var(--border-strong);
+}
+
+.nav-grid a:last-child { border-right: none; }
+
+.nav-grid a[aria-current="page"] {
+  background: var(--surface);
+}
+
+/* Page Title Bar */
+.page-titlebar {
+  border-bottom: 2px solid var(--border-strong);
+  padding: 0.75rem 1rem;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.6rem;
+  background: var(--surface-2);
+}
+
+/* Sections */
+.section {
+  border-bottom: 2px solid var(--border-strong);
+  padding: 1.25rem 0;
+}
+
+.card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* Home Page */
+.home-title {
+  text-align: center;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-weight: 900;
+  margin: 1.25rem 0 0.75rem;
+}
+
+/* Full-width hero section */
+.hero {
+  width: 100%;
+  border-top: 2px solid var(--border-strong);
+  border-bottom: 2px solid var(--border-strong);
+}
+
+/* Hero box adjustable width */
+.hero-box {
+  width: 100%;
+  height: 60vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Hero image fills entire area */
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.home-body {
+  border-bottom: 2px solid var(--border-strong);
+  padding: 1rem 0 1.25rem;
+}
+
+/* Cities Page */
+.city-tiles {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.25rem 0;
+}
+
+.city-tile {
+  border: 2px solid var(--border-strong);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.city-tile a {
+  display: block;
+  position: relative;
+  height: 210px;
+  background: #222222;
+  color: var(--text);
+}
+
+.city-tile .label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.85rem 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  border-top: 1px solid #444;
+  font-weight: 900;
+  font-size: 1.35rem;
+  text-align: center;
+}
+
+.city-tile .note {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Footer */
+.site-footer {
+  border-top: 2px solid var(--border-strong);
+  padding: 1rem 0;
+  text-align: center;
+  color: var(--muted);
+  background: var(--surface-2);
+  font-size: 0.95rem;
+}
+
+/* Responsive Design */
+@media (max-width: 720px) {
+  .nav-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .nav-grid a {
+    border-right: 2px solid var(--border-strong);
+    border-bottom: 2px solid var(--border-strong);
+  }
+
+  .nav-grid a:nth-child(2n) { border-right: none; }
+  .nav-grid a:nth-last-child(-n + 2) { border-bottom: none; }
+
+}
+
+/* Back to Cities Button */
+.back-link-wrapper {
+  width: min(var(--maxw), calc(100% - 2rem));
+  margin: 1rem auto 0.5rem auto;
+}
+
+.back-link {
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: var(--text);
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.back-link:hover {
+  background: var(--surface);
+  text-decoration: none;
+  transform: translateX(-3px);
+}
