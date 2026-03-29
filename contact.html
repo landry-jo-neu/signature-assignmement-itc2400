@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quick Travels with Jonathan - Contact Me</title>
+  <link rel="stylesheet" href="stylesheet/stylesheet.css" />
+</head>
+
+<body>
+  <!-- Top Nav ( Home | Cities | Contact Me ) -->
+  <header class="site-header">
+    <nav class="nav-grid">
+      <a href="index.html">Home</a>
+      <a href="cities.html">Cities</a>
+      <a href="contact.html">Contact Me</a>
+    </nav>
+  </header>
+
+ <div class="page-titlebar">Contact Me</div>
+
+  <main class="container">
+    <section class="section">
+      <div class="card form-card">
+        <h1 class="form-title">Contact Me Form</h1>
+        <p class="form-intro">
+          Please complete the form below if you would like help planning a trip to one of these cities, or choose 'Other' to request information on another destination, or all other inquiries.
+        </p>
+
+        <form class="contact-form" action="#" method="post">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="first-name">First Name</label>
+              <input
+                type="text"
+                id="first-name"
+                name="first-name"
+                required
+                maxlength="50"
+                pattern="[A-Za-z][A-Za-z\s'-]{0,49}"
+                title="Please enter a valid first name using letters, spaces, apostrophes, or hyphens only."
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="last-name">Last Name</label>
+              <input
+                type="text"
+                id="last-name"
+                name="last-name"
+                required
+                maxlength="50"
+                pattern="[A-Za-z][A-Za-z\s'-]{0,49}"
+                title="Please enter a valid last name using letters, spaces, apostrophes, or hyphens only."
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                required
+                maxlength="15"
+                pattern="[0-9]{10,15}"
+                title="Please enter a valid phone number using digits only (10–15 numbers)."
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                maxlength="100"
+                title="Please enter a valid email address."
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="help-topic">How can I help you?</label>
+            <select id="help-topic" name="help-topic" required>
+              <option value="">Select one</option>
+              <option value="reykjavik">Help me plan a trip to Reykjavik</option>
+              <option value="barcelona">Help me plan a trip to Barcelona</option>
+              <option value="istanbul">Help me plan a trip to Istanbul</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="other-details">If you selected "Other," please describe</label>
+            <textarea
+              id="other-details"
+              name="other-details"
+              rows="6"
+              maxlength="500"
+              disabled
+              placeholder="Please describe your inquiry (maxiumum 500 characters)"
+            ></textarea>
+            <p class="form-note">
+              This field is only available when “Other” is selected.
+            </p>
+          </div>
+
+          <div class="form-actions">
+            <button type="reset">Clear</button>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      Copyright &copy; 2026 - ITC 2400<br>
+      <a href="contact.html">Contact Me</a>
+    </div>
+  </footer>
+
+    <!-- Enable Text Box when 'Other' Selected -->
+  <script>
+    const helpTopic = document.getElementById('help-topic');
+    const otherDetails = document.getElementById('other-details');
+
+    function toggleOtherField() {
+      const isOther = helpTopic.value === 'other';
+      otherDetails.disabled = !isOther;
+      otherDetails.required = isOther;
+
+      if (!isOther) {
+        otherDetails.value = '';
+      }
+    }
+
+    helpTopic.addEventListener('change', toggleOtherField);
+    toggleOtherField();
+  </script>
+</body>
+</html>
