@@ -233,3 +233,181 @@ a:hover {
   text-decoration: none;
   transform: translateX(-3px);
 }
+
+/* Contact Me Form */
+.form-card {
+  padding: 2rem;
+}
+
+.form-title {
+  margin: 0 0 0.5rem 0;
+  text-align: center;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.form-intro {
+  margin: 0 0 1.5rem 0;
+  text-align: center;
+  color: var(--muted);
+}
+
+.contact-form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 700;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1rem;
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  outline: 2px solid #666666;
+  outline-offset: 2px;
+}
+
+.contact-form input:invalid,
+.contact-form select:invalid,
+.contact-form textarea:invalid {
+  border-color: #888888;
+}
+
+.contact-form textarea:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.form-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.form-actions button {
+  min-width: 130px;
+  padding: 0.8rem 1.2rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.form-actions button:hover {
+  background: var(--surface);
+}
+
+@media (max-width: 720px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* City Page 3x2 Layout */
+.city-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  border: 2px solid var(--border-strong);
+  margin: 1.5rem 0;
+}
+
+.grid-item {
+  border-right: 2px solid var(--border-strong);
+  border-bottom: 2px solid var(--border-strong);
+}
+
+.grid-item:nth-child(3n) {
+  border-right: none;
+}
+
+.grid-item:nth-last-child(-n + 3) {
+  border-bottom: none;
+}
+
+/* City Page Image Row Sizing  */
+.image-box {
+  height: 220px;
+  overflow: hidden;
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* City Page Content Row Sizing */
+.content-box {
+  padding: 1rem;
+  background: var(--surface);
+}
+
+.content-box h2 {
+  margin-top: 0;
+  text-align: center;
+  font-size: 1.3rem;
+  border-bottom: 1px solid var(--border-strong);
+  padding-bottom: 0.4rem;
+}
+
+.content-box ul {
+  margin: 0.75rem 0 0 0;
+  padding-left: 1.25rem;
+}
+
+.content-box li {
+  margin-bottom: 0.5rem;
+}
+
+/* City Page Responsive */
+@media (max-width: 900px) {
+  .city-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-item {
+    border-right: none;
+  }
+}
