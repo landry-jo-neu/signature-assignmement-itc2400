@@ -411,3 +411,20 @@ a:hover {
     border-right: none;
   }
 }
+
+/* Contact Me Form Javascript Styles */
+.form-group-full {
+  grid-column: 1 / -1;
+}
+
+.error-message {
+  margin: 0;
+  color: #ff8a8a;
+  font-size: 0.9rem;
+  min-height: 1.2em;
+}
+
+.input-error {
+  border-color: #ff8a8a !important;
+}
+
