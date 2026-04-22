@@ -10,86 +10,84 @@
 <body>
   <!-- Top Nav ( Home | Cities | Contact Me ) -->
   <header class="site-header">
-    <nav class="nav-grid">
+    <nav class="nav-grid" aria-label="Primary navigation">
       <a href="index.html">Home</a>
       <a href="cities.html">Cities</a>
-      <a href="contact.html">Contact Me</a>
+      <a href="contact.html" aria-current="page">Contact Me</a>
     </nav>
   </header>
 
- <div class="page-titlebar">Contact Me</div>
+  <div class="page-titlebar">Contact Me</div>
 
   <main class="container">
     <section class="section">
       <div class="card form-card">
         <h1 class="form-title">Contact Me Form</h1>
         <p class="form-intro">
-          Please complete the form below if you would like help planning a trip to one of these cities, or choose 'Other' to request information on another destination, or all other inquiries.
+          Please complete the form below if you would like help planning a trip to one of these cities, or choose "Other" to request information about another destination or inquiry.
         </p>
 
-        <form class="contact-form" action="#" method="post">
+        <form class="contact-form" id="contact-form" action="#" method="post" novalidate>
           <div class="form-grid">
             <div class="form-group">
               <label for="first-name">First Name</label>
-              <input
-                type="text"
-                id="first-name"
-                name="first-name"
-                required
-                maxlength="50"
-                pattern="[A-Za-z][A-Za-z\s'-]{0,49}"
-                title="Please enter a valid first name using letters, spaces, apostrophes, or hyphens only."
-              />
+              <input type="text" id="first-name" name="first-name" />
+              <p class="error-message" id="first-name-error"></p>
             </div>
 
             <div class="form-group">
               <label for="last-name">Last Name</label>
-              <input
-                type="text"
-                id="last-name"
-                name="last-name"
-                required
-                maxlength="50"
-                pattern="[A-Za-z][A-Za-z\s'-]{0,49}"
-                title="Please enter a valid last name using letters, spaces, apostrophes, or hyphens only."
-              />
+              <input type="text" id="last-name" name="last-name" />
+              <p class="error-message" id="last-name-error"></p>
+            </div>
+
+            <div class="form-group form-group-full">
+              <label for="street-address">Street Address</label>
+              <input type="text" id="street-address" name="street-address" />
+              <p class="error-message" id="street-address-error"></p>
+            </div>
+
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" id="city" name="city" />
+              <p class="error-message" id="city-error"></p>
+            </div>
+
+            <div class="form-group">
+              <label for="state">State</label>
+              <input type="text" id="state" name="state" maxlength="2" />
+              <p class="error-message" id="state-error"></p>
+            </div>
+
+            <div class="form-group">
+              <label for="zip">Zip Code</label>
+              <input type="text" id="zip" name="zip" />
+              <p class="error-message" id="zip-error"></p>
             </div>
 
             <div class="form-group">
               <label for="phone">Phone Number</label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                required
-                maxlength="15"
-                pattern="[0-9]{10,15}"
-                title="Please enter a valid phone number using digits only (10–15 numbers)."
-              />
+              <input type="text" id="phone" name="phone" />
+              <p class="error-message" id="phone-error"></p>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-group-full">
               <label for="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                maxlength="100"
-                title="Please enter a valid email address."
-              />
+              <input type="text" id="email" name="email" />
+              <p class="error-message" id="email-error"></p>
             </div>
           </div>
 
           <div class="form-group">
             <label for="help-topic">How can I help you?</label>
-            <select id="help-topic" name="help-topic" required>
+            <select id="help-topic" name="help-topic">
               <option value="">Select one</option>
               <option value="reykjavik">Help me plan a trip to Reykjavik</option>
               <option value="barcelona">Help me plan a trip to Barcelona</option>
               <option value="istanbul">Help me plan a trip to Istanbul</option>
               <option value="other">Other</option>
             </select>
+            <p class="error-message" id="help-topic-error"></p>
           </div>
 
           <div class="form-group">
@@ -98,13 +96,13 @@
               id="other-details"
               name="other-details"
               rows="6"
-              maxlength="500"
+              placeholder="Please describe your inquiry (maximum 500 characters)"
               disabled
-              placeholder="Please describe your inquiry (maxiumum 500 characters)"
             ></textarea>
             <p class="form-note">
               This field is only available when “Other” is selected.
             </p>
+            <p class="error-message" id="other-details-error"></p>
           </div>
 
           <div class="form-actions">
@@ -123,22 +121,226 @@
     </div>
   </footer>
 
-    <!-- Enable Text Box when 'Other' Selected -->
   <script>
+    const form = document.getElementById('contact-form');
     const helpTopic = document.getElementById('help-topic');
     const otherDetails = document.getElementById('other-details');
+
+    const firstName = document.getElementById('first-name');
+    const lastName = document.getElementById('last-name');
+    const streetAddress = document.getElementById('street-address');
+    const city = document.getElementById('city');
+    const state = document.getElementById('state');
+    const zip = document.getElementById('zip');
+    const phone = document.getElementById('phone');
+    const email = document.getElementById('email');
+
+    function capitalizeFirstLetter(value) {
+      const trimmed = value.trim();
+      if (trimmed.length === 0) return '';
+      return trimmed.charAt(0).toUpperCase() + trimmed.slice(1).toLowerCase();
+    }
 
     function toggleOtherField() {
       const isOther = helpTopic.value === 'other';
       otherDetails.disabled = !isOther;
-      otherDetails.required = isOther;
 
       if (!isOther) {
         otherDetails.value = '';
+        clearError('other-details');
       }
     }
 
+    function showError(fieldId, message) {
+      const errorElement = document.getElementById(fieldId + '-error');
+      const inputElement = document.getElementById(fieldId);
+
+      if (errorElement) {
+        errorElement.textContent = message;
+      }
+
+      if (inputElement) {
+        inputElement.classList.add('input-error');
+      }
+    }
+
+    function clearError(fieldId) {
+      const errorElement = document.getElementById(fieldId + '-error');
+      const inputElement = document.getElementById(fieldId);
+
+      if (errorElement) {
+        errorElement.textContent = '';
+      }
+
+      if (inputElement) {
+        inputElement.classList.remove('input-error');
+      }
+    }
+
+    function clearAllErrors() {
+      const fieldIds = [
+        'first-name',
+        'last-name',
+        'street-address',
+        'city',
+        'state',
+        'zip',
+        'phone',
+        'email',
+        'help-topic',
+        'other-details'
+      ];
+
+      fieldIds.forEach(clearError);
+    }
+
+    function validateName(value) {
+      return /^[A-Za-z][A-Za-z\s'-]{0,49}$/.test(value);
+    }
+
+    function validateStreetAddress(value) {
+      return /^[A-Za-z0-9\s.,'#-]{5,100}$/.test(value);
+    }
+
+    function validateCity(value) {
+      return /^[A-Za-z][A-Za-z\s'-]{0,49}$/.test(value);
+    }
+
+    function validateState(value) {
+      return /^[A-Za-z]{2}$/.test(value);
+    }
+
+    function validateZip(value) {
+      return /^\d{5}(-\d{4})?$/.test(value);
+    }
+
+    function validatePhone(value) {
+      return /^\d{10,15}$/.test(value);
+    }
+
+    function validateEmail(value) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    firstName.addEventListener('blur', function () {
+      firstName.value = capitalizeFirstLetter(firstName.value);
+    });
+
+    lastName.addEventListener('blur', function () {
+      lastName.value = capitalizeFirstLetter(lastName.value);
+    });
+
+    city.addEventListener('blur', function () {
+      city.value = capitalizeFirstLetter(city.value);
+    });
+
+    state.addEventListener('blur', function () {
+      state.value = state.value.trim().toUpperCase();
+    });
+
     helpTopic.addEventListener('change', toggleOtherField);
+
+    form.addEventListener('reset', function () {
+      clearAllErrors();
+      setTimeout(toggleOtherField, 0);
+    });
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      clearAllErrors();
+
+      firstName.value = capitalizeFirstLetter(firstName.value);
+      lastName.value = capitalizeFirstLetter(lastName.value);
+      city.value = capitalizeFirstLetter(city.value);
+      state.value = state.value.trim().toUpperCase();
+
+      let isValid = true;
+
+      if (firstName.value.trim() === '') {
+        showError('first-name', 'First name is required.');
+        isValid = false;
+      } else if (!validateName(firstName.value.trim())) {
+        showError('first-name', 'Enter a valid first name.');
+        isValid = false;
+      }
+
+      if (lastName.value.trim() === '') {
+        showError('last-name', 'Last name is required.');
+        isValid = false;
+      } else if (!validateName(lastName.value.trim())) {
+        showError('last-name', 'Enter a valid last name.');
+        isValid = false;
+      }
+
+      if (streetAddress.value.trim() === '') {
+        showError('street-address', 'Street address is required.');
+        isValid = false;
+      } else if (!validateStreetAddress(streetAddress.value.trim())) {
+        showError('street-address', 'Enter a valid street address.');
+        isValid = false;
+      }
+
+      if (city.value.trim() === '') {
+        showError('city', 'City is required.');
+        isValid = false;
+      } else if (!validateCity(city.value.trim())) {
+        showError('city', 'Enter a valid city name.');
+        isValid = false;
+      }
+
+      if (state.value.trim() === '') {
+        showError('state', 'State is required.');
+        isValid = false;
+      } else if (!validateState(state.value.trim())) {
+        showError('state', 'Enter a valid 2-letter state code.');
+        isValid = false;
+      }
+
+      if (zip.value.trim() === '') {
+        showError('zip', 'Zip code is required.');
+        isValid = false;
+      } else if (!validateZip(zip.value.trim())) {
+        showError('zip', 'Enter a valid ZIP code (12345 or 12345-6789).');
+        isValid = false;
+      }
+
+      if (phone.value.trim() === '') {
+        showError('phone', 'Phone number is required.');
+        isValid = false;
+      } else if (!validatePhone(phone.value.trim())) {
+        showError('phone', 'Enter digits only (10 to 15 numbers).');
+        isValid = false;
+      }
+
+      if (email.value.trim() === '') {
+        showError('email', 'Email is required.');
+        isValid = false;
+      } else if (!validateEmail(email.value.trim())) {
+        showError('email', 'Enter a valid email address.');
+        isValid = false;
+      }
+
+      if (helpTopic.value === '') {
+        showError('help-topic', 'Please select one option.');
+        isValid = false;
+      }
+
+      if (helpTopic.value === 'other') {
+        if (otherDetails.value.trim() === '') {
+          showError('other-details', 'Please describe your request.');
+          isValid = false;
+        } else if (otherDetails.value.trim().length > 500) {
+          showError('other-details', 'Please keep your response under 500 characters.');
+          isValid = false;
+        }
+      }
+
+      if (isValid) {
+        alert('Form submitted successfully.');
+        form.submit();
+      }
+    });
+
     toggleOtherField();
   </script>
 </body>
